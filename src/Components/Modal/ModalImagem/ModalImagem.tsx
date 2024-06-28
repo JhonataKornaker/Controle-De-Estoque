@@ -2,29 +2,30 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { useState } from "react";
 import imgPadrao from '../../../../public/Imagens/img2_padrao.png'
 import { X } from "lucide-react";
-import { useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
     interface ModalImagemProps {
-        src?: string;
+        readonly src?: string;
     }
 
     export function ModalImagem({src}:ModalImagemProps) {
 
         const [isOpen, setIsOpen] = useState(false)
         const { register, handleSubmit } = useForm()
-        const [imagensUrl, setImagensUrl] = useState<string>(src)
+        const [imagensUrl, setImagensUrl] = useState<string>(src ?? '')
 
-        const onSubmit = (dados: string) => {
-            setImagensUrl(dados)
-            setIsOpen(false)    
-            console.log(dados)
-        }
+        const onSubmit: SubmitHandler<FieldValues> = (data) => {
+            const dados = data['dados'] as string;
+            setImagensUrl(dados);
+            setIsOpen(false);
+            console.log(dados);
+        };
 
         return (
             <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
                 <Dialog.Trigger asChild>
                     <button>
-                        <img className='w-[150px] h-[150px]' src={imagensUrl ? imagensUrl : imgPadrao} alt='Imagem Padrao' />
+                        <img className='w-[150px] h-[150px]' src={imagensUrl || imgPadrao} alt='Imagem Padrao' />
                 </button>
             </Dialog.Trigger>
             <Dialog.Portal>
@@ -38,7 +39,7 @@ import { useForm } from "react-hook-form";
                     </Dialog.Title>
                     <div className="w-[250px] h-[200px] border mb-2">
                         <img
-                            src={imagensUrl ? imagensUrl : imgPadrao}
+                            src={imagensUrl || imgPadrao}
                             alt="Descrição da imagem"
                             className="w-full h-full object-cover"
                         />

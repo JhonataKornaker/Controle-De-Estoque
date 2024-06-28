@@ -1,6 +1,6 @@
-import { Dispatch, ReactNode, SetStateAction, createContext, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction, createContext, useMemo, useState } from "react";
 
-interface itens {
+interface Itens {
     id: number,
     nome: string,
     quantidade: number,
@@ -10,8 +10,12 @@ interface itens {
 }
 
 interface EstoqueContextType {
-    estoque: itens[]
-    setEstoque: Dispatch<SetStateAction<itens[]>>
+    estoque: Itens[]
+    setEstoque: Dispatch<SetStateAction<Itens[]>>
+}
+
+interface EstoqueProviderProps {
+    readonly children: ReactNode;
 }
 
 export const EstoqueContext = createContext<EstoqueContextType>({
@@ -19,10 +23,13 @@ export const EstoqueContext = createContext<EstoqueContextType>({
     setEstoque: () => {}
 });
 
-export default function EstoqueProvider({ children }: {children: ReactNode}) {
-    const [estoque, setEstoque] = useState<itens[]>([])
+export default function EstoqueProvider({ children }: EstoqueProviderProps) {
+    const [estoque, setEstoque] = useState<Itens[]>([])
+    
+    const value = useMemo(() => ({ estoque, setEstoque }), [estoque, setEstoque]);
+
     return (
-        <EstoqueContext.Provider value={{ estoque, setEstoque }}>
+        <EstoqueContext.Provider value={value}>
             {children}
         </EstoqueContext.Provider>
     )

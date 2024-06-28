@@ -13,9 +13,9 @@ interface Itens {
 }
 
 interface ModalEitarProps {
-    id: number,
-    estoque: Itens[],
-    setEstoque: React.Dispatch<React.SetStateAction<Itens[]>>
+    readonly id: number,
+    readonly estoque: Itens[],
+    readonly setEstoque: React.Dispatch<React.SetStateAction<Itens[]>>
 }
 
 export function ModalEditar({ id, estoque, setEstoque }: ModalEitarProps) {

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useEstoqueContext } from '../../hooks/useEstoqueContext';
 import imgPadrao from '../../../public/Imagens/img2_padrao.png';
 import { Cabecalho } from '../../Components/Cabecalho/Cabecalho';
 import { ArrowLeft } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 interface Itens {
     id: number;

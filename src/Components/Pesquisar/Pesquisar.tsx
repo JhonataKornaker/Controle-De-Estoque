@@ -1,11 +1,11 @@
 import { Search } from "lucide-react";
 
-interface pesquisarProps {
-  pesquisar: string,
-  setPesquisar: (pesquisar: string) => void
+interface PesquisarProps {
+  readonly pesquisar: string,
+  readonly setPesquisar: (pesquisar: string) => void
 }
 
-export function Pesquisar({pesquisar, setPesquisar}: pesquisarProps) {
+export function Pesquisar({pesquisar, setPesquisar}: PesquisarProps) {
   return (
       <div className="relative my-4">
         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
